@@ -88,4 +88,4 @@ COPY Makefile.TOOLS Makefile
 RUN make
 
 RUN mkdir /opt/work_dir
-RUN echo "PATH=$PATH:/opt/alamode/alm:/opt/alamode/anphon:/opt/alamode/tools" >> ~/.bashrc
+ENV PATH=$PATH:/opt/alamode/alm:/opt/alamode/anphon:/opt/alamode/tools
