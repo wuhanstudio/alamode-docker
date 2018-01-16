@@ -1,0 +1,48 @@
+.SUFFIXES: .h .cpp
+#-----------------------------------------------
+# Makefile for the program 'ALM'.
+# Please modify the variables properly.
+# We recommend to use Intel c++ compiler.
+#-----------------------------------------------
+
+CXX = g++ 
+CXXFLAGS = -O2 -fopenmp -std=c++11
+INCLUDE = -I../include
+
+CXXL = ${CXX}
+LDFLAGS = -llapacke -llapack -lrefblas -lgfortran -lblas
+
+LAPACK = -L /opt/lapack/lapack-3.8.0
+LIBS = ${LAPACK}
+
+#-----------------------------------------------
+# General rules 
+#-----------------------------------------------
+
+.cpp.o:
+	${CXX} ${CXXFLAGS} ${INCLUDE} -c $<
+
+PROG = alm
+
+CXXSRC= alamode.cpp constraint.cpp error.cpp fcs.cpp files.cpp \
+	fitting.cpp input.cpp interaction.cpp main.cpp memory.cpp \
+	patterndisp.cpp symmetry.cpp system.cpp timer.cpp writes.cpp 
+
+OBJS= ${CXXSRC:.cpp=.o}
+
+default: alm
+
+all: ${PROG}
+
+alm: ${OBJS}
+	${CXXL} ${CXXFLAGS} -o $@ ${OBJS} ${LIBS} ${LDFLAGS}
+
+clean:
+	rm -f ${OBJS}
+
+.PHONY: clean
+
+depend:
+	gcc -MM *.cpp > .depend
+
+-include .depend
