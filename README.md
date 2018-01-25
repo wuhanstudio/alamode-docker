@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![Alamode](https://github.com/ttadano/alamode/raw/develop/docs/img/alamode.png)
 
 ## Build Image
